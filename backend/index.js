@@ -4,9 +4,34 @@ import dotenv from "dotenv";
 import ReferralsDAO from "./dao/referralDAO.js";
 import orgService from "./api/orgService.js";
 import cors from "cors";
-
-let server;
+import express from "express";
+import referrals from "./api/referrals.route.js";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 dotenv.config();
+
+const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Replace with your desired origin URL
+    credentials: true,
+  })
+);
+
+// Server can accept json in request body
+app.use(express.json());
+app.use(cookieParser());
+app.use("/api/v1", referrals);
+// If you go into a route that is not in the file
+app.use("*", (req, res, next) => {
+  if (!res.headersSent) {
+    res.status(404).json({ error: "Not found" });
+  } else {
+    next();
+  }
+});
+
 const port = process.env.PORT || 8000;
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: __dirname + "/.env" });
@@ -44,3 +69,5 @@ mongoose
     }
     // Export the server for Vercel deployment
   });
+
+export default app;
