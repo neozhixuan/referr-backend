@@ -29,7 +29,7 @@ mongoose
     app.use(cors());
 
     // How we start the web server after connecting
-    server = app.listen(port, () => {
+    app.listen(port, () => {
       // Log the process
       console.log(`listening on port ${port}`);
     });
@@ -44,4 +44,3 @@ mongoose
     }
     // Export the server for Vercel deployment
   });
-export default server;
