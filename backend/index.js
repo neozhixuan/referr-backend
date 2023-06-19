@@ -7,7 +7,9 @@ import cors from "cors";
 
 dotenv.config();
 const port = process.env.PORT || 8000;
-
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config({ path: __dirname + "/.env" });
+}
 mongoose
   .connect(process.env.REFERRALS_DB_URI, {
     useNewUrlParser: true,
@@ -30,6 +32,15 @@ mongoose
       // Log the process
       console.log(`listening on port ${port}`);
     });
+    app.use("/", require(path.join(__dirname, "api", "v1")));
+    if (process.env.NODE_ENV === "production") {
+      app.use(express.static(path.join(__dirname, "../frontend", "build")));
+      app.get("/*", (req, res) => {
+        res.sendFile(
+          path.join(__dirname, "../frontend", "build", "index.html")
+        );
+      });
+    }
 
     // Export the server for Vercel deployment
   });
