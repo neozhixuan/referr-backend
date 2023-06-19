@@ -5,6 +5,7 @@ import ReferralsDAO from "./dao/referralDAO.js";
 import orgService from "./api/orgService.js";
 import cors from "cors";
 
+let server;
 dotenv.config();
 const port = process.env.PORT || 8000;
 if (process.env.NODE_ENV !== "production") {
@@ -28,7 +29,7 @@ mongoose
     app.use(cors());
 
     // How we start the web server after connecting
-    const server = app.listen(port, () => {
+    server = app.listen(port, () => {
       // Log the process
       console.log(`listening on port ${port}`);
     });
@@ -41,6 +42,6 @@ mongoose
         );
       });
     }
-
     // Export the server for Vercel deployment
   });
+export default server;
