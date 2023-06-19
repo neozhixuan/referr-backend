@@ -25,4 +25,4 @@ app.use("*", (req, res, next) => {
   }
 });
 // So we can import in a file that accesses the database
-module.exports = app;
+export default app;
