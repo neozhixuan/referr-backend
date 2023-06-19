@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function () {
-  this.password = await bcrypt.hash(this.password, 12);
+  this.password = await bcryptjs.hash(this.password, 12);
 });
 
 const User = mongoose.model("User", userSchema, "Users");

@@ -1,6 +1,6 @@
 import User from "../models/UserModel.js";
 import createSecretToken from "../util/SecretToken.js";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 
 export const Signup = async (req, res, next) => {
   try {
@@ -40,7 +40,7 @@ export const Login = async (req, res, next) => {
     if (!user) {
       return res.json({ message: "Incorrect password or email" });
     }
-    const auth = await bcrypt.compare(password, user.password);
+    const auth = await bcryptjs.compare(password, user.password);
     if (!auth) {
       return res.json({ message: "Incorrect password or email" });
     }
