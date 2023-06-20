@@ -38,7 +38,7 @@ export default class orgService {
     //   return { organisationsList: [], totalNumOrganisations: 0 };
     // }
 
-    const displayCursor = organisations
+    const displayCursor = await organisations
       .find(query)
       .limit(organisationsPerPage)
       .skip(organisationsPerPage * page);
