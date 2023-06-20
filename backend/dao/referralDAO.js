@@ -43,7 +43,7 @@ export default class ReferralsDAO {
       return { referralsList: [], totalNumReferrals: 0 };
     }
 
-    const displayCursor = cursor
+    const displayCursor = await cursor
       .limit(referralsPerPage)
       .skip(referralsPerPage * page);
 
