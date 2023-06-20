@@ -7,7 +7,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://referr.vercel.app/*", "http://localhost:3000/*"], // Replace with your desired origin URL
+    origin: ["https://referr.vercel.app", "http://localhost:3000"], // Replace with your desired origin URL
     credentials: true,
   })
 );
