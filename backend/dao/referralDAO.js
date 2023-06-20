@@ -37,9 +37,10 @@ export default class ReferralsDAO {
     // Get all referrals with the specified query
     let cursor;
     try {
+      console.log("Referrals: ", referrals);
       cursor = await referrals.find(query);
     } catch (e) {
-      console.log("Referrals: ", referrals);
+      console.log("Referrals failed: ", referrals);
       console.error(`Unable to issue find command, ${e}`);
       return { referralsList: [], totalNumReferrals: 0 };
     }
