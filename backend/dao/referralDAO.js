@@ -39,10 +39,11 @@ export default class ReferralsDAO {
     try {
       cursor = await referrals.find(query);
     } catch (e) {
+      console.log("Referrals: ", referrals);
       console.error(`Unable to issue find command, ${e}`);
       return { referralsList: [], totalNumReferrals: 0 };
     }
-
+    // added here
     const displayCursor = await cursor
       .limit(referralsPerPage)
       .skip(referralsPerPage * page);
