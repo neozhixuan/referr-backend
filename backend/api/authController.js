@@ -5,6 +5,7 @@ import bcryptjs from "bcryptjs";
 export const Signup = async (req, res, next) => {
   try {
     console.log(req.body);
+    console.log("Afaffs");
     const { email, password, username, createdAt } = req.body;
     const existingUserByEmail = await User.findOne({ email });
     const existingUserByUsername = await User.findOne({ username });
@@ -17,12 +18,9 @@ export const Signup = async (req, res, next) => {
     const user = await User.create({ email, password, username, createdAt });
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
-      domain: ".vercel.app",
-      secure: true,
       withCredentials: true,
       httpOnly: false,
     });
-
     res
       .status(201)
       .json({ message: "User signed in successfully", success: true, user });
