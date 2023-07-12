@@ -4,6 +4,8 @@ import ReferralsDAO from "../dao/referralDAO.js";
 export default class ReferralsController {
   static async apiGetReferrals(req, res, next) {
     let retryCount = 0;
+    let referralsList = [];
+    let totalNumReferrals = 0;
 
     const maxRetries = 5;
     const retryDelay = 500; // milliseconds
@@ -24,12 +26,13 @@ export default class ReferralsController {
     }
 
     async function callAPI() {
-      const { referralsList, totalNumReferrals } =
-        await ReferralsDAO.getReferrals({
-          filters,
-          page,
-          referralsPerPage,
-        });
+      const response = await ReferralsDAO.getReferrals({
+        filters,
+        page,
+        referralsPerPage,
+      });
+      referralsList = response.referralsList;
+      totalNumReferrals = response.totalNumReferrals;
     }
 
     async function retryAPICall() {
