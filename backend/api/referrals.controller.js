@@ -3,12 +3,6 @@ import ReferralsDAO from "../dao/referralDAO.js";
 // Basically use the requests, get info from DAO, and return a response
 export default class ReferralsController {
   static async apiGetReferrals(req, res, next) {
-    let retryCount = 0;
-    let referralsList = [];
-    let totalNumReferrals = 0;
-
-    const maxRetries = 5;
-    const retryDelay = 500; // milliseconds
     // Check if we have defined the number of referrals per page
     const referralsPerPage = req.query.referralsPerPage
       ? // The 10 is the radix input (convert string to int)
@@ -25,32 +19,12 @@ export default class ReferralsController {
       filters.exact = req.query.exact;
     }
 
-    async function callAPI() {
-      const response = await ReferralsDAO.getReferrals({
+    const { referralsList, totalNumReferrals } =
+      await ReferralsDAO.getReferrals({
         filters,
         page,
         referralsPerPage,
       });
-      referralsList = response.referralsList;
-      totalNumReferrals = response.totalNumReferrals;
-    }
-
-    async function retryAPICall() {
-      while (referralsList.length === 0 && retryCount < maxRetries) {
-        await callAPI();
-
-        if (referralsList.length === 0) {
-          retryCount++;
-          await delay(retryDelay);
-        }
-      }
-    }
-
-    function delay(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
-    retryAPICall();
 
     let response = {
       referrals: referralsList,
