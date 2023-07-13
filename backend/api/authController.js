@@ -52,8 +52,7 @@ export const Login = async (req, res, next) => {
       expires: expirationDate,
       domain:
         process.env.NODE_ENV == "production" ? ".referr.site" : "localhost",
-      withCredentials: true,
-      httpOnly: process.env.NODE_ENV == "production" ? true : false,
+      httpOnly: true,
       secure: process.env.NODE_ENV == "production" ? true : false,
     });
     // next();
