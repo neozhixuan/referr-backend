@@ -53,7 +53,7 @@ export const Login = async (req, res, next) => {
       domain:
         process.env.NODE_ENV == "production" ? ".referr.site" : "localhost",
       httpOnly: true,
-      secure: process.env.NODE_ENV == "production" ? true : false,
+      secure: true,
     });
     // next();
     return res.status(201).json({
