@@ -52,7 +52,7 @@ export const Login = async (req, res, next) => {
     const token = createSecretToken(user._id);
 
     res.cookie("token", token, {
-      max_age: expirationDate,
+      maxAge: expirationDate.getTime() - Date.now(),
       domain: ".referr.site",
       httpOnly: true,
       secure: true,
