@@ -49,7 +49,7 @@ export const Login = async (req, res, next) => {
     const expirationDate = new Date(Date.now() + oneWeekInSeconds * 1000);
 
     res.cookie("token", token, {
-      expires: expirationDate,
+      max_age: expirationDate,
       domain: ".referr.site",
       httpOnly: true,
       secure: true,
