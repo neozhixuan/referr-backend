@@ -50,8 +50,7 @@ export const Login = async (req, res, next) => {
 
     res.cookie("token", token, {
       expires: expirationDate,
-      domain:
-        process.env.NODE_ENV == "production" ? ".referr.site" : "localhost",
+      domain: ".referr.site",
       httpOnly: true,
       secure: true,
     });
