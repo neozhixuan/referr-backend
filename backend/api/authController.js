@@ -51,7 +51,6 @@ export const Login = async (req, res, next) => {
     res.cookie("token", token, {
       expires: expirationDate,
       domain: ".referr.site",
-      path: "/api/v1",
       httpOnly: true,
       secure: true,
     });
