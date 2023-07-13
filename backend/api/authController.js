@@ -53,7 +53,8 @@ export const Login = async (req, res, next) => {
       domain:
         process.env.NODE_ENV == "production" ? ".vercel.app" : "localhost",
       withCredentials: true,
-      httpOnly: false,
+      httpOnly: process.env.NODE_ENV == "production" ? true : false,
+      secure: process.env.NODE_ENV == "production" ? true : false,
     });
     // next();
     return res.status(201).json({
