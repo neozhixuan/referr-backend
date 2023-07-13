@@ -2,6 +2,9 @@ import User from "../models/UserModel.js";
 import createSecretToken from "../util/SecretToken.js";
 import bcryptjs from "bcryptjs";
 
+const oneWeekInSeconds = 7 * 24 * 60 * 60;
+const expirationDate = new Date(Date.now() + oneWeekInSeconds * 1000);
+
 export const Signup = async (req, res, next) => {
   try {
     console.log(req.body);
@@ -18,8 +21,10 @@ export const Signup = async (req, res, next) => {
     const user = await User.create({ email, password, username, createdAt });
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
+      max_age: expirationDate,
+      domain: ".referr.site",
+      httpOnly: true,
+      secure: true,
     });
     res
       .status(201)
@@ -45,8 +50,6 @@ export const Login = async (req, res, next) => {
       return res.json({ message: "Incorrect password or email" });
     }
     const token = createSecretToken(user._id);
-    const oneWeekInSeconds = 7 * 24 * 60 * 60;
-    const expirationDate = new Date(Date.now() + oneWeekInSeconds * 1000);
 
     res.cookie("token", token, {
       max_age: expirationDate,
