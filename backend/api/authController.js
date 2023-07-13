@@ -45,7 +45,11 @@ export const Login = async (req, res, next) => {
       return res.json({ message: "Incorrect password or email" });
     }
     const token = createSecretToken(user._id);
+    const oneWeekInSeconds = 7 * 24 * 60 * 60;
+    const expirationDate = new Date(Date.now() + oneWeekInSeconds * 1000);
+
     res.cookie("token", token, {
+      expires: expirationDate,
       withCredentials: true,
       httpOnly: false,
     });
