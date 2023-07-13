@@ -7,7 +7,7 @@ const userVerification = (req, res) => {
     return res.json({
       status: false,
       message: "No token found",
-      user_request: req,
+      cookie: req.cookies,
     });
   }
   jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
