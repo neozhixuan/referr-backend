@@ -19,7 +19,7 @@ app.use(
 // Server can accept json in request body
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api/v1", referrals);
+app.use("/", referrals);
 // If you go into a route that is not in the file
 app.use("*", (req, res, next) => {
   if (!res.headersSent) {
