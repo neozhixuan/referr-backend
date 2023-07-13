@@ -10,7 +10,7 @@ app.use(
     origin: [
       "https://referr.vercel.app",
       "http://localhost:3000",
-      "https://referr.site",
+      "https://www.referr.site",
     ], // Replace with your desired origin URL
     credentials: true,
   })
