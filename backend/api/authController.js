@@ -50,6 +50,8 @@ export const Login = async (req, res, next) => {
 
     res.cookie("token", token, {
       expires: expirationDate,
+      domain:
+        process.env.NODE_ENV == "production" ? ".vercel.app" : "localhost",
       withCredentials: true,
       httpOnly: false,
     });
