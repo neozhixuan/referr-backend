@@ -5,8 +5,12 @@ import ReferralsDAO from "./dao/referralDAO.js";
 import orgService from "./api/orgService.js";
 import mongoose from "mongoose";
 import cors from "cors";
+import keepAlive from "./keepAlive.js";
+
 dotenv.config();
 const port = process.env.PORT || 8000;
+
+setInterval(keepAlive, 1 * 60 * 1000);
 
 mongoose
   .connect(process.env.REFERRALS_DB_URI, {
