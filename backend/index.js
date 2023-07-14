@@ -11,10 +11,10 @@ dotenv.config();
 const port = process.env.PORT || 8000;
 
 setInterval(() => {
-  keepAlive().catch((error) => {
+  keepAlive.catch((error) => {
     console.error("Error in keepAlive:", error);
   });
-}, 1 * 60 * 1000);
+}, 20 * 60 * 1000);
 mongoose
   .connect(process.env.REFERRALS_DB_URI, {
     useNewUrlParser: true,
