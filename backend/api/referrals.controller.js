@@ -7,7 +7,7 @@ export default class ReferralsController {
     const referralsPerPage = req.query.referralsPerPage
       ? // The 10 is the radix input (convert string to int)
         parseInt(req.query.referralsPerPage, 10)
-      : 10;
+      : 6;
     const page = req.query.page ? parseInt(req.query.page, 10) : 0;
 
     let filters = {};
